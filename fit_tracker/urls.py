@@ -17,10 +17,26 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from rest_framework_nested import routers
 
+from api import views
+
+# router = routers.DefaultRouter()
+
+router = routers.SimpleRouter()
+router.register(r'activities', views.ActivityViewSet)
+
+router.register(r'users', views.UserViewSet)
+
+
+activities_router = routers.NestedSimpleRouter(
+    router, r'activities', lookup='activity')
+activities_router.register(r'stats', views.StatViewSet)
 
 urlpatterns = [
+    url(r'^', include(router.urls)),
     url(r'^admin/', include(admin.site.urls)),
-    # url(r'^api/', include(router.urls)),
-    url(r'^api/', include(api.urls)),
+    url(r'^api/', include(router.urls)),
+    url(r'^api/', include(activities_router.urls)),
     url(r'^docs/', include('rest_framework_swagger.urls')),
+    url(r'^api-auth/', include('rest_framework.urls',
+                               namespace='rest_framework')),
 ]

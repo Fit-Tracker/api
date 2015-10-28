@@ -37,4 +37,4 @@ class StatViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         activity_pk = self.kwargs['activity_pk']
-        return self.queryset.filter(activity_id=activity_id)
+        return self.queryset.filter(activity_id=activity_pk)

@@ -7,6 +7,9 @@ class Activity(models.Model):
     title = models.CharField(max_length=255)
     user = models.ForeignKey(User, null=True)
 
+    def __str__(self):
+        return(self.title)
+
 
 class Stat(models.Model):
     activity = models.ForeignKey(Activity)

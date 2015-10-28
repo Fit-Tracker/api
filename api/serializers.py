@@ -10,7 +10,7 @@ class StatSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Stat
-        fields = ('activity_id', 'stat', 'timestamp')
+        fields = ('pk', 'activity_id', 'stat', 'timestamp')
 
 
 class ActivitySerializer(serializers.HyperlinkedModelSerializer):
@@ -18,7 +18,7 @@ class ActivitySerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Activity
-        fields = ('title', 'user')
+        fields = ('pk', 'title', 'user')
 
 
 class ActivityDetailSerializer(ActivitySerializer):
@@ -31,4 +31,4 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'activities', 'stats')
+        fields = ('pk', 'username', 'password', 'activities', 'stats')

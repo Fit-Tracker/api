@@ -34,6 +34,7 @@ activities_router.register(r'stats', views.StatViewSet)
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^api/whoami', views.whoami, name='who-am-i'),
     url(r'^api/', include(router.urls)),
     url(r'^api/', include(activities_router.urls)),
     url(r'^docs/', include('rest_framework_swagger.urls')),

@@ -12,17 +12,25 @@ class StatSerializer(serializers.HyperlinkedModelSerializer):
         model = Stat
         fields = ('pk', 'activity_id', 'stat', 'timestamp')
 
+    def create(self, validated_data):
+        validated_data['activity_id'] = self.context['activity_pk']
+        answer = Stat.objects.create(**validated_data)
+        return answer
+
 
 class ActivitySerializer(serializers.HyperlinkedModelSerializer):
     title = serializers.CharField(max_length=255)
 
     class Meta:
         model = Activity
-        fields = ('pk', 'title', 'user')
+        fields = ('id', 'title', 'user')
 
 
 class ActivityDetailSerializer(ActivitySerializer):
-    pass
+    stats = StatSerializer(many=True, read_only=True)
+
+    class Meta(ActivitySerializer.Meta):
+        fields = tuple(list(ActivitySerializer.Meta.fields) + ['stats'])
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -32,3 +40,10 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ('pk', 'username', 'password', 'activities', 'stats')
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        user = super().create(validated_data)
+        user.set_password(validated_data['password'])
+        user.save()
+        return user

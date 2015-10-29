@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets, permissions
 from .models import Activity, Stat
-from .serializers import UserSerializer, StatSerializer, ActivitySerializer, ActivityDetailSerializer
+from .serializers import UserSerializer, StatSerializer, ActivitySerializer
 # from .permissions import IsUserOrReadOnly
 from django.contrib.auth.models import User
 # Create your views here.
@@ -27,7 +27,7 @@ class ActivityViewSet(viewsets.ModelViewSet):
         if self.action == 'list':
             return ActivitySerializer
         else:
-            return ActivityDetailSerializer
+            return ActivitySerializer
 
 
 class StatViewSet(viewsets.ModelViewSet):

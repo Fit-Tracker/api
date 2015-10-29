@@ -26,17 +26,16 @@ router.register(r'activities', views.ActivityViewSet)
 
 router.register(r'users', views.UserViewSet)
 
+activities_router = routers.NestedSimpleRouter(router, r'activities', lookup='activity')
 
-activities_router = routers.NestedSimpleRouter(
-    router, r'activities', lookup='activity')
-activities_router.register(r'stats', views.StatViewSet)
+activities_router.register(r'stats', views.StatViewSet, base_name='activities-stats')
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    # url(r'^', include(router.urls)),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^docs/', include('rest_framework_swagger.urls')),
     url(r'^api/', include(router.urls)),
     url(r'^api/', include(activities_router.urls)),
-    url(r'^docs/', include('rest_framework_swagger.urls')),
     url(r'^api-auth/', include('rest_framework.urls',
                                namespace='rest_framework')),
 ]

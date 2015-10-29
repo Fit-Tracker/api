@@ -8,10 +8,13 @@ class Activity(models.Model):
     user = models.ForeignKey(User, null=True)
 
     def __str__(self):
-        return(self.title)
+        return '{}'.format(self.title)
 
 
 class Stat(models.Model):
     activity = models.ForeignKey(Activity)
     stat = models.IntegerField()
     timestamp = models.DateField(null=True)
+
+    def __str__(self):
+        return '{} : {} : {}'.format(self.activity, self.stat, self.timestamp)

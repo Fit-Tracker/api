@@ -19,9 +19,10 @@ from rest_framework_nested import routers
 
 from api import views
 
-# router = routers.DefaultRouter()
+router = routers.DefaultRouter()
 
-router = routers.SimpleRouter()
+# router = routers.SimpleRouter()
+
 router.register(r'activities', views.ActivityViewSet)
 
 router.register(r'users', views.UserViewSet)

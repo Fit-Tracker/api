@@ -7,6 +7,8 @@ class StatSerializer(serializers.HyperlinkedModelSerializer):
     activity_id = serializers.PrimaryKeyRelatedField(
         many=False, read_only=True, source='activity')
     timestamp = serializers.DateField()
+    # title = serializers.PrimaryKeyRelatedField(
+    #     source='activity')
 
     class Meta:
         model = Stat

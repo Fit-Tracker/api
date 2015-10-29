@@ -36,5 +36,5 @@ class StatViewSet(viewsets.ModelViewSet):
     # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
-        activity_pk = self.kwargs['activity_pk']
-        return self.queryset.filter(activity_id=activity_pk)
+        activity_id = self.kwargs['activity_pk']
+        return self.queryset.filter(activity_id=activity_id)
